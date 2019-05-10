@@ -3,6 +3,7 @@ package main
 import (
 	"go-contacts/controllers"
 	"github.com/gin-gonic/gin"
+	"go-contacts/jwt"
 	middlewares "go-contacts/middleware"
 	"go-contacts/database"
 )
@@ -31,6 +32,7 @@ func main() {
 		}
 
 		users := v1.Group("/users")
+		users.Use(jwt.JWT())
 		{
 			users.GET("/all",controllers.GetUsers)
 			users.GET("/id/:id", controllers.GetUserById)
